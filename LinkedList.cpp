@@ -18,6 +18,25 @@ struct TeamNode {
     TeamNode* next;
     };
 
+void addTeam(TeamNode*& head, string teamName) {
+    TeamNode* newTeam = new TeamNode;
+    newTeam->teamName = teamName;
+    newTeam->playerCount = 0;
+    newTeam->next = nullptr;
+
+    if (head == nullptr) {
+        head = newTeam;
+    } else {
+        TeamNode* current = head;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = newTeam;
+    }
+    cout << "Tim '" << teamName << "' berhasil ditambahkan!\n";
+}
+
+
 void showMenu() {
     cout << "\n=== SISTEM PENDAFTARAN TURNAMEN MOBILE LEGENDS ===\n";
     cout << "1. Tambah Tim Baru\n";
