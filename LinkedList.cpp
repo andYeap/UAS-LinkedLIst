@@ -413,3 +413,91 @@ void showMenu() {
     cout << "Pilih menu (1-7): ";
 }
 
+int main() {
+    TeamNode* head = nullptr;
+    int choice;
+    string teamName;
+
+    cout << "Selamat datang di Sistem Pendaftaran Turnamen Mobile Legends!\n";
+
+    do {
+        showMenu();
+        cin >> choice;
+        cin.ignore(); 
+
+        switch (choice) {
+            case 1:
+                cout << "Masukkan nama tim: ";
+                getline(cin, teamName);
+                addTeam(head, teamName);
+                break;
+
+            case 2:
+                
+                displayRegisteredTeams(head);
+
+                
+                if (head != nullptr) 
+                    cout << "\nApakah Anda ingin menghapus tim? (y/n): ";
+                    char pilihan;
+                    cin >> pilihan;
+                    cin.ignore(); 
+
+                    if (pilihan == 'y' || pilihan == 'Y') {
+                        cout << "Masukkan nama tim yang akan dihapus: ";
+                        getline(cin, teamName);
+                        removeTeam(head, teamName);
+                    }
+                
+                break;
+
+            case 3:
+                cout << "Masukkan nama tim: ";
+                getline(cin, teamName);
+                cout << "Masukkan posisi (1-" << (head == nullptr ? 1 : 2) << "): ";
+                int position;
+                cin >> position;
+                insertTeam(head, teamName, position);
+                break;
+
+            case 4:
+                cout << "Masukkan nama tim yang akan dikelola playernya: ";
+                getline(cin, teamName);
+                managePlayersMenu(head, teamName);
+                break;
+
+            case 5:
+                displayAllTeams(head);
+                break;
+
+            case 6:
+                cout << "Masukkan nama tim: ";
+                getline(cin, teamName);
+                displayTeam(head, teamName);
+                break;
+
+            case 7:
+                cout << "Terima kasih telah menggunakan sistem ini!\n";
+                break;
+
+            default:
+                cout << "Pilihan tidak valid! Silakan pilih 1-7.\n";
+        }
+
+        if (choice != 7) {
+            cout << "\nTekan Enter untuk melanjutkan...";
+            cin.get();
+        }
+
+    } while (choice != 7);
+
+   
+    while (head != nullptr) {
+        TeamNode* temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    return 0;
+
+    }
